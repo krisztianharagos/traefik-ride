@@ -1,0 +1,33 @@
+version: "3.3"
+
+services:
+  traefik:
+    image: "traefik:v2.6"
+    command:
+      - "--log.level=DEBUG"
+      - "--api.insecure=true"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entrypoints.web.address=:80"
+      - "--entrypoints.websecure.address=:443"
+      # Activate tls on all containers.
+      - "--entrypoints.websecure.http.tls=true"
+      # Load certificates to use for tls.
+      - "--providers.file.filename=/etc/certs/traefik-dynamic.yml"
+    ports:
+      - "80:80"
+      - "443:443"
+      - "8080:8080"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+      - ./server.key:/etc/certs/example.com.key
+      - ./fullchain.crt:/etc/certs/example.com.crt      
+      - ./configuration/traefik-dynamic.yml:/etc/certs/traefik-dynamic.yml
+  whoami:
+    image: "traefik/whoami"
+    labels:
+      - "traefik.enable=true"
+      #- "traefik.http.routers.whoami.rule=Host(`whoami.localhost`)"
+      - "traefik.http.routers.whoami.rule=Host(`example.com`)"
+      - "traefik.http.routers.whoami.entrypoints=websecure"
+      - "traefik.http.routers.web.tls.domains[0].main=example.com"
