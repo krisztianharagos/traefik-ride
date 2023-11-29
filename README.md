@@ -39,7 +39,7 @@ docker-compose up
 #step certificate inspect https://example.com --roots "./root-ca.crt" --format pem --bundle
 #step certificate inspect https://example.com --roots "./root-ca.crt" --format json --bundle
 
-step certificate inspect https://example.com --roots "./root-ca.crt" --format json --bundle | grep subject_dn
+step certificate inspect https://example.com --roots "./root-ca.crt" --format json --bundle | grep subject_dn # best for shallow verfication
 
 curl -ks https://example.com
 ```

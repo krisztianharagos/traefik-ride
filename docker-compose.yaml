@@ -2,7 +2,9 @@ version: "3.3"
 
 services:
   traefik:
-    image: "traefik:v2.6"
+    image: "traefik:v2.10" # fresh as of Nov. 2023
+    #image: "traefik:v2.5" # 2 years old -> https://hub.docker.com/_/traefik/tags?page=1&name=2.5
+    #image: "traefik:v2.2" # 3 years old
     command:
       - "--log.level=DEBUG"
       - "--api.insecure=true"
