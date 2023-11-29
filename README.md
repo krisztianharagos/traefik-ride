@@ -43,3 +43,9 @@ step certificate inspect https://example.com --roots "./root-ca.crt" --format js
 
 curl -ks https://example.com
 ```
+
+## additional traefik info
+
+https://community.traefik.io/t/directory-file-provider-doesnt-read-config-file/2744/7
+
+Look for `providers.file.directory` or `providers.file.filename`
